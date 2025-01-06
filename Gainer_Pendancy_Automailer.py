@@ -36,7 +36,7 @@ location_list = ["Select Location"] + location['Location'].tolist()
 Location = st.selectbox(label="Select Location", options=location_list)
 
 # File Uploader for Email List
-Mail_list = st.file_uploader("Upload Mail list", type='xlsx')
+#Mail_list = st.file_uploader("Upload Mail list", type='xlsx')
 
 # Execute SQL Procedure and Load Data
 cursor = conn.cursor()
@@ -191,7 +191,7 @@ def to_excel(df):
     return output.getvalue()
 
 # Buttons for downloading data and sending mail
-col1, col2 = st.columns(2)
+col1, col2,col3 = st.columns(3)
 
 with col1:
     if st.button('📊 Generate Data'):
@@ -204,5 +204,7 @@ with col1:
         )
 
 with col2:
+    st.link_button(label="Google Mail List",url="https://docs.google.com/spreadsheets/d/1UO5pF3yKaYemf-s3YKK62yjbT0zdG4EjTUmlzcQHT00/edit?gid=1610467454#gid=1610467454")
+with col3:
     if st.button('📧 Send Mail'):
         Mail()
