@@ -194,10 +194,10 @@ def to_excel(df):
 col1, col2 = st.columns(2)
 
 with col1:
-    if st.button('📥 Download Data'):
+    if st.button('📊 Generate Data'):
         df_xlsx = to_excel(df)
         st.download_button(
-            label="Download Excel File",
+            label="📥 Download Excel File",
             data=df_xlsx,
             file_name=f"{brand}_Pendency_Report.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
