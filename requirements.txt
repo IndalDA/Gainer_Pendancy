@@ -2,6 +2,3 @@ pandas
 pyodbc
 streamlit
 smtplib
-MIMEMultipart
-MIMEText
-BytesIO
