@@ -1,0 +1,7 @@
+streamlit
+pandas
+pyodbc
+smtplib
+MIMEMultipart
+MIMEText
+BytesIO
