@@ -115,7 +115,7 @@ def Mail():
         print(f"Sending email to: {dealer,all_recipients}")
 
         msg = MIMEMultipart("alternative")
-        msg["Subject"] = "Response required on Pending Orders"
+        msg["Subject"] = "Response required on Pending Orders_"+dealer
         #msg["From"] = "scsit.db2@sparecare.in"
         msg["From"] = "gainer.alerts@sparecare.in"
         msg["To"]=to_email
