@@ -300,9 +300,9 @@ def Own_arrangement_Mail(brandid):
         'Invoice Value', 'Shipment Date', 'LR/AWB No', 'Courier Name']]
       html_table = ds.to_html(index=False, border=1, justify='center')
       sub = filtered_df['Buyer_Dealer'].values+"_"+filtered_df['Buyer_Location'].values
-      s = "Own Arrangement shipment-"+str(sub).replace("['",'').replace("']",'')
+      s = "Pending for Receipt Own Arrangement shipment-"+str(sub).replace("['",'').replace("']",'')
       subject = str(s)
-    # subject  = "Own Arrangement shipment -" +sub
+    # subject  = "Pending for Receipt Own Arrangement shipment -" +sub
 
       if filtered_df.empty:
           print(f"No data found for dealer: {dealer}")
