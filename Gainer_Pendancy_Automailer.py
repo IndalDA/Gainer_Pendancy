@@ -300,7 +300,7 @@ def Own_arrangement_Mail(brandid):
         'Invoice Value', 'Shipment Date', 'LR/AWB No', 'Courier Name']]
       html_table = ds.to_html(index=False, border=1, justify='center')
       sub = filtered_df['Buyer_Dealer'].values+"_"+filtered_df['Buyer_Location'].values
-      s = "Pending for Receipt Own Arrangement shipment-"+str(sub).replace("['",'').replace("']",'')
+      s = "Pending Receipt : "+str(sub).replace("['",'').replace("']",'')
       subject = str(s)
     # subject  = "Pending for Receipt Own Arrangement shipment -" +sub
 
@@ -373,7 +373,9 @@ def Own_arrangement_Mail(brandid):
           print("Email sent successfully!")
       except Exception as e:
           print(f"Error: {e}")
-          
+      st.success("Emails sent successfully!")
+  
+
 with col2:
     st.link_button(label="⌨ Google Mail List",url="https://docs.google.com/spreadsheets/d/1UO5pF3yKaYemf-s3YKK62yjbT0zdG4EjTUmlzcQHT00/edit?gid=1610467454#gid=1610467454")
 with col3:
