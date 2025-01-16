@@ -300,6 +300,7 @@ def Own_arrangement_Mail(brandid):
         'Invoice Value', 'Shipment Date', 'LR/AWB No', 'Courier Name']]
       html_table = ds.to_html(index=False, border=1, justify='center')
       sub = filtered_df['Buyer_Dealer'].values+"_"+filtered_df['Buyer_Location'].values
+      sub = pd.unique(sub)
       s = "Pending Receipt : "+str(sub).replace("['",'').replace("']",'')
       subject = str(s)
     # subject  = "Pending for Receipt Own Arrangement shipment -" +sub
