@@ -247,7 +247,7 @@ with col1:
 
 def Own_arrangement_Mail(brandid):
   import pandas as pd
-  from tabulate import tabulate
+ # from tabulate import tabulate
   from email.mime.multipart import MIMEMultipart
   from email.mime.text import MIMEText
   import smtplib
