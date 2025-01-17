@@ -355,7 +355,7 @@ def Own_arrangement_Mail(brandid):
       {html_table}
 
       <p style="font-family: 'Calibri', Times, serif;">Request to kindly receive parts in Gainer Portal.</p>
-      <p style ="font-family:'Calibri',Times,serif;">In case of any Issue kindly raise claim in Gainer Portal.</b></p>
+      <p style ="font-family:'Calibri',Times,serif;">In case shipment not received, kindly revert.</b></p>
       <p style="font-family: 'Calibri', Times, serif;">Warm Regards,<br>Gainer Team</p>
 
 
