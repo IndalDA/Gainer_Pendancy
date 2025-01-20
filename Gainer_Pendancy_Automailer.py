@@ -544,7 +544,7 @@ with col1:
                     from CurrentStock1 a 
                     inner join CurrentStock2 b on a.tcode=b.stockcode
                     inner join LocationInfo c on a.LocationID=c.LocationID
-                    WHERE c.Status=1 and c.SharingStatus=1  and c.BrandID=28) as tbl
+                    WHERE c.Status=1 and c.SharingStatus=1  and c.BrandID=?) as tbl
                     where tbl.Day_Difference>=5 
                     """,conn,params=(brandid,))                 
         df_xlsx = to_excel(df)
