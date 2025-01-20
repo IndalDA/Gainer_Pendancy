@@ -376,6 +376,107 @@ def Own_arrangement_Mail(brandid):
           print(f"Error: {e}")
       st.success("Emails sent successfully!")
   
+# stock update 
+    def stock_update_Mail(brandid):
+      df = pd.read_sql("""
+     select *from (
+    select distinct top 10 c.brand,c.dealer, c.location,c.DealerID,c.LocationID,format(a.stockdate,'dd-MMM-yy') stockdate,
+    DATEDIFF(day,CAST(a.stockdate as date),CAST(getdate() as date) )Day_Difference
+    from CurrentStock1 a 
+    inner join CurrentStock2 b on a.tcode=b.stockcode
+    inner join LocationInfo c on a.LocationID=c.LocationID
+    WHERE c.Status=1 and c.SharingStatus=1  and c.BrandID=?) as tbl
+    where tbl.Day_Difference>=5 
+      """,conn,params=(brandid))
+    
+      # MAIL
+      #Mail_df = pd.read_excel(r'C:\Users\Admin\Downloads\Book1.xlsx')
+      Mail_df = pd.read_csv(r'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDqBXCxlSXSgOHUAUH6rPqtDQ-RWg9f0AOTFJH2-gAGOoJqubSFjGgRsJjmkECWyeWAP65Vx789z6B/pub?gid=1610467454&single=true&output=csv')  
+      Mail_df['unique_dealer'] = Mail_df['Brand'] + "_" + Mail_df['Dealer'] + "_" + Mail_df['Location']
+      df['Unque_Dealer'] = df['brand']+"_"+df['dealer']+"_"+df['location']
+      merge_df = df.merge(Mail_df, left_on='Unque_Dealer', right_on='unique_dealer', how='inner')
+      Unique_Dealer = merge_df['Unque_Dealer'].unique()
+      for dealer in Unique_Dealer:
+          filtered_df = merge_df[merge_df['unique_dealer'] == dealer]
+          filtered_df.rename(columns={'dealer':'Dealer Name','location':'Dealer Location','stockdate':'Last Stock Update Date'},inplace=True)
+    
+          ds = filtered_df[filtered_df['Unque_Dealer']== dealer][['Dealer Name','Dealer Location', 'Last Stock Update Date']]
+          html_table = ds.to_html(index=False, border=1, justify='center')
+          sub = filtered_df['Dealer Name'].values+"_"+filtered_df['Dealer Location'].values
+          s = "Stock Update Status -"+str(sub).replace("['",'').replace("']",'')
+          subject = str(s)
+    
+          if filtered_df.empty:
+              print(f"No data found for dealer: {dealer}")
+              continue
+          to_email =to_email = filtered_df['To'].iloc[0] 
+          cc_emails =cc_emails = filtered_df['CC'].iloc[0]
+          cc_emails = cc_emails.replace(' ', '')  
+          cc_email_list = cc_emails.split(';') if cc_emails else []
+          all_recipients = [to_email] + cc_emails
+          print(f"Sending email to: {dealer,all_recipients}")
+          msg = MIMEMultipart("alternative")
+          msg["Subject"] =subject
+          msg["From"] = "gainer.alerts@sparecare.in"
+          msg["To"]=to_email
+          msg['Cc']=cc_emails 
+    
+          html_content = f"""
+          <html>
+          <head>
+          <style>
+          table {{
+              border-collapse: collapse;
+              width: auto;
+              table-layout: auto;
+              text-align: center;
+          }}
+          th, td {{
+              border: 1px solid black;
+              padding:4px;
+              word-wrap: break-word;
+          }}
+          th {{
+              background-color: #33ffda;
+          }}
+          body, p, th, td {{
+              color: black; }}
+    
+          </style>
+          </head>
+          <body>
+          <p style="font-family: 'Calibri', Times, serif;">Dear Sir,</p>
+          <p style="font-family: 'Calibri', Times, serif;">Greetings !! </p>
+          <p style="font-family: 'Calibri', Times, serif;">In Sparecare Gainer Portal, Current Spare Parts Stock of below mentioned location is not updated from Last 5 days.</p>
+          <p style="font-family: 'Calibri', Times, serif;">It may increase Order Rejections from your dealership and will affect future orders.</p>
+    
+          {html_table}
+    
+          <p style="font-family: 'Calibri', Times, serif;">Request to kindly update the Current Stock in  Gainer Portal on Priority.</p>
+          <p style ="font-family:'Calibri',Times,serif;">For any issue/support required, please <b>Whatsapp on +91 8882263920</b></b></p>
+          <p style="font-family: 'Calibri', Times, serif;">Warm Regards,<br>Gainer Team</p>
+          <p style ="font-family:'Calibri',Times,serif;">Note: This is an auto generated mail alert. For any query resolution,please whatsapp on +91 8882263920.</p>
+    
+          </body>
+          </html>
+          """
+          msg.attach(MIMEText(html_content, "html"))
+          try:
+              with smtplib.SMTP("smtp.gmail.com", 587) as server:
+                  server.starttls()
+                  server.login('gainer.alerts@sparecare.in', 'fmyclggqzrmkykol')
+                  server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
+              print("Email sent successfully!")
+          except Exception as e:
+              print(f"Error: {e}")
+
+
+
+
+
+
+
+
 
 with col2:
     st.link_button(label="⌨ Google Mail List",url="https://docs.google.com/spreadsheets/d/1UO5pF3yKaYemf-s3YKK62yjbT0zdG4EjTUmlzcQHT00/edit?gid=1610467454#gid=1610467454")
@@ -413,20 +514,31 @@ with col1:
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+with col2:
+    if st.button("Sent stock update mail"):
+        brandid = str(brandid)    
+        stock_update_Mail(brandid)    
+with col1:
+     if st.button('📥 Generate Stock Update Report'):
+        brandid = str(brandid) 
+        df = pd.read_sql("""
+                select *from (
+                    select  distinct c.brand,c.dealer, c.location,c.DealerID,c.LocationID,format(a.stockdate,'dd-MMM-yy') stockdate,
+                    DATEDIFF(day,CAST(a.stockdate as date),CAST(getdate() as date) )Day_Difference
+                    from CurrentStock1 a 
+                    inner join CurrentStock2 b on a.tcode=b.stockcode
+                    inner join LocationInfo c on a.LocationID=c.LocationID
+                    WHERE c.Status=1 and c.SharingStatus=1  and c.BrandID=28) as tbl
+                    where tbl.Day_Difference>=5 
+                    """,conn,params=(brandid,))                 
+        df_xlsx = to_excel(df)
+        st.download_button(
+            label="Download Excel File",
+            data=df_xlsx,
+            file_name=f"{brand}_Stock_update_Report.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+    
 
 
 cursor.close()
