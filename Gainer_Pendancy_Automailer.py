@@ -491,6 +491,7 @@ def stock_update_Mail(brandid):
             print("Email sent successfully!")
         except Exception as e:
             print(f"Error: {e}")
+        st.success("Emails sent successfully!")    
 
 
 
