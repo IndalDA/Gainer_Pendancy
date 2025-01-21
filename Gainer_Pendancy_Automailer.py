@@ -489,6 +489,7 @@ def stock_update_Mail(brandid):
                 server.login('gainer.alerts@sparecare.in', 'fmyclggqzrmkykol')
                 server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
             print("Email sent successfully!")
+            st.success("Emails sent successfully!")    
         except Exception as e:
             print(f"Error: {e}")
         st.success("Emails sent successfully!")    
