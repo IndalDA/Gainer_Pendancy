@@ -426,8 +426,13 @@ def stock_update_Mail(brandid):
             print(f"No data found for dealer: {dealer}")
             continue
 
-        to_email = filtered_df['To'].iloc[0]
-        cc_emails = filtered_df['CC'].iloc[0].replace(' ', '')
+       # to_email = filtered_df['To'].iloc[0]
+        #cc_emails = filtered_df['CC'].iloc[0].replace(' ', '')
+        #cc_email_list = cc_emails.split(';') if cc_emails else []
+
+        to_email = filtered_df['To'].iloc[0] 
+        cc_emails = filtered_df['CC'].iloc[0]
+        cc_emails = cc_emails.replace(' ', '')  
         cc_email_list = cc_emails.split(';') if cc_emails else []
         all_recipients = [to_email] + cc_email_list
 
