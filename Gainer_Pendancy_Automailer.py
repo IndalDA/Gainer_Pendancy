@@ -395,7 +395,7 @@ def stock_update_Mail(brandid):
     cursor = conn.cursor()
     df = pd.read_sql("""
         select * from (
-            select distinct top 10 c.brand, c.dealer, c.location, c.DealerID, c.LocationID, 
+            select distinct c.brand, c.dealer, c.location, c.DealerID, c.LocationID, 
                    format(a.stockdate, 'dd-MMM-yy') stockdate,
                    DATEDIFF(day, CAST(a.stockdate as date), CAST(getdate() as date)) Day_Difference
             from CurrentStock1 a 
@@ -553,8 +553,9 @@ with col1:
                     inner join LocationInfo c on a.LocationID=c.LocationID
                     WHERE c.Status=1 and c.SharingStatus=1  and c.BrandID=?) as tbl
                     where tbl.Day_Difference>=5 
-                    """,conn,params=(brandid,))                 
-        df_xlsx = to_excel(df)
+                    """,conn,params=(brandid,))
+        merge_df = df.merge(Mail_df, left_on='Unque_Dealer', right_on='unique_dealer', how='left')
+        df_xlsx = to_excel(merge_df)
         st.download_button(
             label="Download Excel File",
             data=df_xlsx,
