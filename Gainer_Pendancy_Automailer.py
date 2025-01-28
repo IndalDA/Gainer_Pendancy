@@ -273,7 +273,7 @@ def Own_arrangement_Mail(brandid):
   inner join SH_DispatchInvoiceDetail f on a.DispatchOrderNo=f.DispatchOrderNo
   --left join CompanyMaster    e on d.CompanyCode=e.CompanyCode
   where d.CompanyCode=3 and PARTNUMBER is not null and a.RECEIVEDATE is null
-  and c.BrandID=? and DISPATCHDATE <= DATEADD(day,-5,getdate()) and b.Dealer not like '%Test%' 
+  and c.BrandID=? and DISPATCHDATE <= DATEADD(day,-5,getdate()) and b.Dealer not like '%Test%' and b.DealerID<>c.DealerID
   """,conn,params=(brandid,))
 
   # MAIL
@@ -526,7 +526,7 @@ with col1:
         inner join SH_DispatchInvoiceDetail f on a.DispatchOrderNo=f.DispatchOrderNo
         --left join CompanyMaster    e on d.CompanyCode=e.CompanyCode
         where d.CompanyCode=3 and PARTNUMBER is not null and a.RECEIVEDATE is null
-        and c.BrandID=? and DISPATCHDATE <= DATEADD(day,-5,getdate()) and b.Dealer not like '%Test%' 
+        and c.BrandID=? and DISPATCHDATE <= DATEADD(day,-5,getdate()) and b.Dealer not like '%Test%'  and b.DealerID<>c.DealerID
         """,conn,params=(brandid,)) 
                 
         df_xlsx = to_excel(df)
