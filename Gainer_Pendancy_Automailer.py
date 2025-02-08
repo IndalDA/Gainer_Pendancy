@@ -352,12 +352,12 @@ def Own_arrangement_Mail(brandid):
       <body>
       <p style="font-family: 'Calibri', Times, serif;">Dear Sir,</p>
       <p style="font-family: 'Calibri', Times, serif;">Greetings !! </p>
-      <p style="font-family: 'Calibri', Times, serif;">Following shipments sent by Own Arrangement by Sellers is <b>“Pending for Receipt”</b> in Gainer Portal.</p>
+      <p style="font-family: 'Calibri', Times, serif;">Following shipments are sent by Selling Dealer via Own Arrangement is <b>“Pending for Receiving”</b> in Sparecare Gainer Portal.</p>
 
       {html_table}
 
-      <p style="font-family: 'Calibri', Times, serif;">Request to kindly receive parts in Gainer Portal.</p>
-      <p style ="font-family:'Calibri',Times,serif;">In case shipment not received, kindly revert.</b></p>
+      <p style="font-family: 'Calibri', Times, serif;">It is requested to kindly receive these parts in Gainer Portal.</p>
+      <p style ="font-family:'Calibri',Times,serif;">In case shipment not received, kindly write mail to gainer.support@sparecare.in</p>
       <p style="font-family: 'Calibri', Times, serif;">Warm Regards,<br>Gainer Team</p>
 
       <p style="font-family: 'Calibri', Times, serif;">This is system generated mail, please do not reply.</p>
@@ -482,7 +482,7 @@ def stock_update_Mail(brandid):
         <p style="font-family: 'Calibri', Times, serif;">Request to kindly update the Current Stock in Gainer Portal on Priority.</p>
         <p style="font-family: 'Calibri', Times, serif;">For any issue/support required, please <b>Whatsapp on +91 8882263920</b></p>
         <p style="font-family: 'Calibri', Times, serif;">Warm Regards,<br>Gainer Team</p>
-        <p style="font-family: 'Calibri', Times, serif;">Note: This is an auto-generated mail alert. For any query resolution, please WhatsApp on +91 8882263920.</p>
+        <p style="font-family: 'Calibri', Times, serif;">Note: This is system generated mail. For any issue, pl write mail to gainer.support@sparecare.in</p>
         </body>
         </html>
         """
