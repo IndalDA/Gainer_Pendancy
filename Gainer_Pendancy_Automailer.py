@@ -160,8 +160,10 @@ def Mail(brand):
 
         <p style="font-family: 'Calibri', Times, serif;">Kindly check & take action at the earliest. Delay in response will affect your <b>RANKING AS SELLER</b> and result in Lesser Liquidation of Non Moving Parts.
         </p>
-        <p style ="font-family:'Calibri',Times,serif;">For any issue/support required, please <b>Whatsapp on +91 8882263920</b></p>
+        <p style ="font-family:'Calibri',Times,serif;">For any issue/support required, please write mail to <b>gainer.support@sparecare.in</b></p>
         <p style="font-family: 'Calibri', Times, serif;">Warm Regards,<br>Gainer Team</p>
+        
+        <p style="font-family: 'Calibri', Times, serif;">This is system generated mail, please do not reply.</p>
 
 
         </body>
@@ -357,6 +359,9 @@ def Own_arrangement_Mail(brandid):
       <p style="font-family: 'Calibri', Times, serif;">Request to kindly receive parts in Gainer Portal.</p>
       <p style ="font-family:'Calibri',Times,serif;">In case shipment not received, kindly revert.</b></p>
       <p style="font-family: 'Calibri', Times, serif;">Warm Regards,<br>Gainer Team</p>
+
+      <p style="font-family: 'Calibri', Times, serif;">This is system generated mail, please do not reply.</p>
+      
 
 
       </body>
