@@ -416,32 +416,51 @@ def stock_update_Mail(brandid):
     df['Unque_Dealer'] = df['brand'] + "_" + df['dealer'] + "_" + df['location']
 
     merge_df = df.merge(Mail_df, left_on='Unque_Dealer', right_on='unique_dealer', how='inner')
-    Unique_Dealer = merge_df['Unque_Dealer'].unique()
+    merge_df['Stock_filter']=merge_df['brand']+'_'+merge_df['dealer']
+    Unique_Dealer = merge_df['Stock_filter'].unique()
 
     for dealer in Unique_Dealer:
-        filtered_df = merge_df[merge_df['unique_dealer'] == dealer]
+        filtered_df = merge_df[merge_df['Stock_filter'] == dealer]
         filtered_df.rename(columns={'dealer': 'Dealer Name', 'location': 'Dealer Location', 'stockdate': 'Last Stock Update Date'}, inplace=True)
 
         ds = filtered_df[filtered_df['Unque_Dealer'] == dealer][['Dealer Name', 'Dealer Location', 'Last Stock Update Date']]
         html_table = ds.to_html(index=False, border=1, justify='center')
-        sub = filtered_df['Dealer Name'].values + "_" + filtered_df['Dealer Location'].values
+       # sub = filtered_df['Dealer Name'].values + "_" + filtered_df['Dealer Location'].values
+        sub = filtered_df['Dealer Name'].values
         subject = "Stock Update Status - " + str(sub).replace("['", '').replace("']", '')
 
         if filtered_df.empty:
             print(f"No data found for dealer: {dealer}")
-            continue
-
+                continue
+        email_set_to = set()
+        for email_string in filtered_df['To'].dropna():
+            emails = email_string.split(';')
+            cleaned_emails = {email.strip() for email in emails}
+            email_set_to.update(cleaned_emails)
+        unique_email_list_to = sorted(email_set_to)
+        
+        email_set_CC = set()
+        for email_string in filtered_df['CC'].dropna():
+            emails = email_string.split(';')
+            cleaned_emails = {email.strip() for email in emails}
+            email_set_CC.update(cleaned_emails)
+        unique_email_list_cc = sorted(email_set_CC)
+        
+        all_recipients = [unique_email_list_to] + [unique_email_list_cc]
+        print(f"Sending email to: {dealer,all_recipients}")
+        
        # to_email = filtered_df['To'].iloc[0]
         #cc_emails = filtered_df['CC'].iloc[0].replace(' ', '')
         #cc_email_list = cc_emails.split(';') if cc_emails else []
 
-        to_email = filtered_df['To'].iloc[0] 
-        cc_emails = filtered_df['CC'].iloc[0]
-        cc_emails = cc_emails.replace(' ', '')  
-        cc_email_list = cc_emails.split(';') if cc_emails else []
-        all_recipients = [to_email] + cc_email_list
-
-        print(f"Sending email to: {dealer, all_recipients}")
+        # to_email = filtered_df['To'].iloc[0] 
+        # cc_emails = filtered_df['CC'].iloc[0]
+        # cc_emails = cc_emails.replace(' ', '')  
+        # cc_email_list = cc_emails.split(';') if cc_emails else []
+        # all_recipients = [to_email] + cc_email_list
+        #print(f"Sending email to: {dealer, all_recipients}")
+        to_email = unique_email_list_to
+        cc_emails = unique_email_list_cc
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
         msg["From"] = "gainer.alerts@sparecare.in"
