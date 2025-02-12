@@ -431,7 +431,7 @@ def stock_update_Mail(brandid):
 
         if filtered_df.empty:
             print(f"No data found for dealer: {dealer}")
-                continue
+            continue
         email_set_to = set()
         for email_string in filtered_df['To'].dropna():
             emails = email_string.split(';')
