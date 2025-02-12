@@ -446,8 +446,16 @@ def stock_update_Mail(brandid):
             email_set_CC.update(cleaned_emails)
         unique_email_list_cc = sorted(email_set_CC)
         
-        all_recipients = [unique_email_list_to] + [unique_email_list_cc]
-        print(f"Sending email to: {dealer,all_recipients}")
+        #all_recipients = [unique_email_list_to] + [unique_email_list_cc]
+        #print(f"Sending email to: {dealer,all_recipients}")
+            # Flatten recipient lists
+        all_recipients = unique_email_list_to + unique_email_list_cc
+
+        print(f"Sending email to: {dealer}, {all_recipients}")
+
+        to_email = ", ".join(unique_email_list_to)
+        cc_emails = ", ".join(unique_email_list_cc)
+
         
        # to_email = filtered_df['To'].iloc[0]
         #cc_emails = filtered_df['CC'].iloc[0].replace(' ', '')
@@ -459,8 +467,9 @@ def stock_update_Mail(brandid):
         # cc_email_list = cc_emails.split(';') if cc_emails else []
         # all_recipients = [to_email] + cc_email_list
         #print(f"Sending email to: {dealer, all_recipients}")
-        to_email = unique_email_list_to
-        cc_emails = unique_email_list_cc
+        #to_email = unique_email_list_to
+        #cc_emails = unique_email_list_cc
+        
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
         msg["From"] = "gainer.alerts@sparecare.in"
