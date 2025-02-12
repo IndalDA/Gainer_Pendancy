@@ -423,7 +423,7 @@ def stock_update_Mail(brandid):
         filtered_df = merge_df[merge_df['Stock_filter'] == dealer]
         filtered_df.rename(columns={'dealer': 'Dealer Name', 'location': 'Dealer Location', 'stockdate': 'Last Stock Update Date'}, inplace=True)
 
-        ds = filtered_df[filtered_df['Unque_Dealer'] == dealer][['Dealer Name', 'Dealer Location', 'Last Stock Update Date']]
+        ds = filtered_df[filtered_df['Stock_filter'] == dealer][['Dealer Name', 'Dealer Location', 'Last Stock Update Date']]
         html_table = ds.to_html(index=False, border=1, justify='center')
        # sub = filtered_df['Dealer Name'].values + "_" + filtered_df['Dealer Location'].values
         sub = filtered_df['Dealer Name'].values
