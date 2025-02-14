@@ -508,9 +508,9 @@ def stock_update_Mail(brandid):
         {html_table}
 
         <p style="font-family: 'Calibri', Times, serif;">Request to kindly update the Current Stock in Gainer Portal on Priority.</p>
-        <p style="font-family: 'Calibri', Times, serif;">For any issue/support required, please <b>Whatsapp on +91 8882263920</b></p>
+        <p style="font-family: 'Calibri', Times, serif;">For any issue/support required, please mail on <b>gainer.suport@sparecare.in</b></p>
         <p style="font-family: 'Calibri', Times, serif;">Warm Regards,<br>Gainer Team</p>
-        <p style="font-family: 'Calibri', Times, serif;">Note: This is system generated mail. For any issue, pl write mail to gainer.support@sparecare.in</p>
+        <p style="font-family: 'Calibri', Times, serif;">Note: This is system generated mail, pl do not reply.</p>
         </body>
         </html>
         """
