@@ -11,7 +11,7 @@ st.title("Gainer Pendancy Automailer")
 def get_db_connection():
     return pyodbc.connect(
         r'DRIVER={ODBC Driver 17 for SQL Server};'
-        r'SERVER=10.10.152.16;'
+        r'SERVER=103.234.185.132,2499;'
         r'DATABASE=z_scope;'
         r'UID=Utkrishtsa;'
         r'PWD=AsknSDV*3h9*RFhkR9j73;'
@@ -257,7 +257,7 @@ def Own_arrangement_Mail(brandid):
 
   conn = pyodbc.connect(
       r'DRIVER={ODBC Driver 17 for SQL Server};'
-      r'SERVER=10.10.152.16;'
+      r'SERVER=103.234.185.132,2499;'
       r'DATABASE=z_scope;'
       r'UID=Utkrishtsa;'
       r'PWD=AsknSDV*3h9*RFhkR9j73;')
@@ -392,7 +392,7 @@ def stock_update_Mail(brandid):
 
     conn = pyodbc.connect(
       r'DRIVER={ODBC Driver 17 for SQL Server};'
-      r'SERVER=10.10.152.16;'
+      r'SERVER=103.234.185.132,2499;'
       r'DATABASE=z_scope;'
       r'UID=Utkrishtsa;'
       r'PWD=AsknSDV*3h9*RFhkR9j73;')
