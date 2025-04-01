@@ -198,7 +198,7 @@ def to_excel(df):
     return output.getvalue()
 
 # Buttons for downloading data and sending mail
-col1, col2,col3 = st.columns(3)
+#col1, col2,col3 = st.columns(3)
 
 #own arrangement
 
@@ -482,7 +482,8 @@ def stock_update_Mail(brandid):
             print(f"Error: {e}")
         st.success("Emails sent successfully!"+subject)    
 
-with tab2: 
+with tab2:
+    col1, col2,col3 = st.columns(3)
     with col1:
         if st.button('📊 Generate Pendancy Data'):
             cursor.execute("exec UAD_Gainer_Pendency_Report_LS")    
@@ -537,6 +538,7 @@ with tab2:
              Mail(brand)   
 
 with tab4:
+    col1, col2,col3 = st.columns(3)
     with col2:
         if st.button("Sent own arrangement mail"):
             brandid = str(brandid)    
@@ -568,6 +570,7 @@ with tab4:
             )
 
 with tab3:
+    col1, col2,col3 = st.columns(3)
     with col2:
         if st.button("Sent stock update mail"):
             brandid = str(brandid)    
@@ -738,6 +741,7 @@ def Po_stage_pendancy(brandid):
         except Exception as e:
             print(f"Error: {e}")
 with tab2:
+    col1, col2,col3 = st.columns(3)
     with col1:
         if st.button('📊 Generate Po Stage Report'):
             cursor.execute("exec UAD_Gainer_Pendency_Report_LS")    
