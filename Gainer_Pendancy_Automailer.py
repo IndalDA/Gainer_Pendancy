@@ -8,6 +8,24 @@ from io import BytesIO
 
 st.title("Gainer Pendancy Automailer")
 
+#Backgound 
+def set_bg_color():
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background-color:rgb(221, 229, 231) ;  /* Light Blue */
+            
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Call the function to set the background color
+set_bg_color()
+
+
 
 def get_db_connection():
     return pyodbc.connect(
@@ -655,7 +673,8 @@ def Po_stage_pendancy(brandid):
     """,conn)
     
     # MAIL
-    Mail_df = pd.read_excel(r"C:\Users\Admin\Downloads\Gainer Mail list for Pendancy.xlsx")
+    #Mail_df = pd.read_excel(r"C:\Users\Admin\Downloads\Gainer Mail list for Pendancy.xlsx")
+    Mail_df = pd.read_csv(r'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDqBXCxlSXSgOHUAUH6rPqtDQ-RWg9f0AOTFJH2-gAGOoJqubSFjGgRsJjmkECWyeWAP65Vx789z6B/pub?gid=997145252&single=true&output=csv')
     Mail_df['unique_dealer'] = Mail_df['Brand'] + "_" + Mail_df['Dealer'] + "_" + Mail_df['Location']
     df['Unque_Dealer'] = df['Brand'] + "_" + df['Dealer to Take Action']
     df['1-2 days>0']  = (df['5-9 hrs']+df['1-2 days']+df['2-4 days']+df['>4 days'])
