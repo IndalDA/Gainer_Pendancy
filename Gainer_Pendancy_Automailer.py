@@ -806,7 +806,7 @@ with tab2:
     
             Mail_df = pd.read_csv(r'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDqBXCxlSXSgOHUAUH6rPqtDQ-RWg9f0AOTFJH2-gAGOoJqubSFjGgRsJjmkECWyeWAP65Vx789z6B/pub?gid=997145252&single=true&output=csv')
             Mail_df['unique_dealer'] = Mail_df['Brand'] + "_" + Mail_df['Dealer'] + "_" + Mail_df['Location']
-            df['Unque_Dealer'] = df['brand'] + "_" + df['dealer'] + "_" + df['location']
+            df['Unque_Dealer'] = df['Brand'] + "_" + df['Dealer'] + "_" + df['Dealer_Location']
             merge_df = df.merge(Mail_df, left_on='Unque_Dealer', right_on='unique_dealer', how='left')
             df_xlsx = to_excel(merge_df)
             st.download_button(
