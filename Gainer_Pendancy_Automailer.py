@@ -8,7 +8,6 @@ from io import BytesIO
 
 st.title("Gainer Pendancy Automailer")
 
-tab1,tab2,tab3,tab4 = st.tabs(['Seller Pendancy','Buyer Pendancy','Stock Update','Own Arrange'])
 
 def get_db_connection():
     return pyodbc.connect(
@@ -50,6 +49,10 @@ Location = st.selectbox(label="Select Location", options=location_list)
 
 # Execute SQL Procedure and Load Data
 cursor = conn.cursor()
+
+
+tab1,tab2,tab3,tab4 = st.tabs(['Seller Pendancy','Buyer Pendancy','Stock Update','Own Arrange'])
+
 # Function to send mail
 def Mail(brand):
     cursor.execute("exec UAD_Gainer_Pendency_Report_LS")
@@ -482,7 +485,7 @@ def stock_update_Mail(brandid):
             print(f"Error: {e}")
         st.success("Emails sent successfully!"+subject)    
 
-with tab2:
+with tab1:
     col1, col2,col3 = st.columns(3)
     with col1:
         if st.button('📊 Generate Pendancy Data'):
