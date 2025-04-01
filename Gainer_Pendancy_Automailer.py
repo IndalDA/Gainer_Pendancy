@@ -793,7 +793,7 @@ with tab2:
                 file_name=f"{brand}_Po_Stage_Pendancy_Report.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
-       with col2:
+    with col2:
         if st.button("Sent Po Pendancy Report"):
             brandid = str(brandid)
             Po_stage_pendancy(brandid)    
