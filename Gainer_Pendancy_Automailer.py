@@ -819,7 +819,7 @@ with tab2:
     with col2:
         if st.button("Sent Po Pendancy Report"):
             brandid = str(brandid)
-            Po_stage_pendancy(brandid)    
+            Po_stage_pendancy(brand)    
 
 
 cursor.close()
