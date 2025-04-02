@@ -700,7 +700,7 @@ def Po_stage_pendancy(brand):
         #msg["From"] = "scsit.db2@sparecare.in"
         msg["From"] = "gainer.alerts@sparecare.in"
         msg["To"]=to_email
-        msg['Cc'] = ';'.join(cc_emails)
+        msg['Cc'] = ','.join(cc_emails)
         #msg['Cc']=cc_emails
     
         #['hanish.khattar@sparecare.in','manish.sharma@sparecare.in','scope@sparecare.in']
