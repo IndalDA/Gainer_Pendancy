@@ -624,7 +624,7 @@ with tab3:
     
 
 # Automailer for PO Sta
-def Po_stage_pendancy(brandid):
+def Po_stage_pendancy(brand):
     import pandas as pd
     from tabulate import tabulate
     from email.mime.multipart import MIMEMultipart
@@ -663,14 +663,14 @@ def Po_stage_pendancy(brandid):
      end responcbucket,
      case when ISNULL(POQty,0)=0  then QTY*(100-DISCOUNT)*MRP/100 else poqty*(100-DISCOUNT)*MRP/100 end ordervalue
      from gainer_pendency_report_test_1
-     where Category='Spare Part' and OrderType='new' and Dealer_type ='Non_Intra'    and BrandID=?
+     where Category='Spare Part' and OrderType='new' and Dealer_type ='Non_Intra'    and brand=?
       ) as TBL
       GROUP BY TBL.brand,TBL.Dealer,TBL.Dealer_Location,TBL.STAGE,TBL.responcbucket ,Co_Dealer,Co_dealer_Location) AS TBL2
      PIVOT (SUM(TBL2.ORDERVALUE)
      FOR TBL2.responcbucket IN ([0-2 hrs],[2-5 hrs],[5-9 hrs],[1-2 days],[2-4 days],[>4 days])
      ) AS TB
      where Stage='PO Awaited'
-    """,conn,params=(brandid,))
+    """,conn,params=(brand,))
     
     # MAIL
     #Mail_df = pd.read_excel(r"C:\Users\Admin\Downloads\Gainer Mail list for Pendancy.xlsx")
