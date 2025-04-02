@@ -623,6 +623,9 @@ with tab3:
             )
     
 
+
+
+
 # Automailer for PO Sta
 def Po_stage_pendancy(brand):
     cursor.execute("exec UAD_Gainer_Pendency_Report_LS")
