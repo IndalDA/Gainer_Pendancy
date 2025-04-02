@@ -670,7 +670,7 @@ def Po_stage_pendancy(brandid):
      FOR TBL2.responcbucket IN ([0-2 hrs],[2-5 hrs],[5-9 hrs],[1-2 days],[2-4 days],[>4 days])
      ) AS TB
      where Stage='PO Awaited'
-    """,conn)
+    """,conn,params=(brandid,))
     
     # MAIL
     #Mail_df = pd.read_excel(r"C:\Users\Admin\Downloads\Gainer Mail list for Pendancy.xlsx")
