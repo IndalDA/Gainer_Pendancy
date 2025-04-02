@@ -625,52 +625,43 @@ with tab3:
 
 # Automailer for PO Sta
 def Po_stage_pendancy(brand):
-    import pandas as pd
-    from tabulate import tabulate
-    from email.mime.multipart import MIMEMultipart
-    from email.mime.text import MIMEText
-    import smtplib
-    import pyodbc
-    
-    conn = pyodbc.connect(
-        r'DRIVER={ODBC Driver 17 for SQL Server};'
-        r'SERVER=103.234.185.132,2499;'
-        r'DATABASE=z_scope;'
-        r'UID=Utkrishtsa;'
-        r'PWD=AsknSDV*3h9*RFhkR9j73;')
-    cursor = conn.cursor()
     cursor.execute("exec UAD_Gainer_Pendency_Report_LS")
-    
     df = pd.read_sql("""
-    select  Brand,Dealer,concat(dealer,'_',dealer_location)[Dealer to Take Action],concat(Co_Dealer,'_',Co_dealer_Location)[Co-Dealer]
-    ,Stage,isnull([0-2 hrs],0)[0-2 hrs],isnull([2-5 hrs],0)[2-5 hrs],
-     isnull([5-9 hrs],0)[5-9 hrs],isnull([1-2 days],0)[1-2 days],isnull([2-4 days],0)[2-4 days],isnull([>4 days],0)[>4 days],
-    (isnull([0-2 hrs],0)+isnull([2-5 hrs],0)+isnull([5-9 hrs],0)+isnull([1-2 days],0)+isnull([2-4 days],0)+isnull([>4 days],0)) Total
-    from(
-    SELECT TBL.brand,TBL.Dealer,TBL.Dealer_Location,tbl.Co_Dealer,tbl.Co_dealer_Location,TBL.STAGE,TBL.responcbucket,SUM(tbl.ordervalue) ORDERVALUE
-    FROM(
-    select brand,Dealer,Dealer_Location, Category,OrderType,Co_Dealer,Co_dealer_Location
-    ,Dealer_type
-    ,qty,POQty,DISCOUNT,MRP,Stage,
-    Response_Time,
-    CASE
-    WHEN EXC_HOLIDAYS <= 120 THEN '0-2 hrs'
-    WHEN EXC_HOLIDAYS <= 300 THEN '2-5 hrs'
-    WHEN EXC_HOLIDAYS <= 540 THEN '5-9 hrs'
-    WHEN EXC_HOLIDAYS <= 1080 THEN '1-2 days'
-    WHEN EXC_HOLIDAYS <= 2160 THEN '2-4 days'
-    ELSE '>4 days'
-     end responcbucket,
-     case when ISNULL(POQty,0)=0  then QTY*(100-DISCOUNT)*MRP/100 else poqty*(100-DISCOUNT)*MRP/100 end ordervalue
-     from gainer_pendency_report_test_1
-     where Category='Spare Part' and OrderType='new' and Dealer_type ='Non_Intra'    and brand=?
-      ) as TBL
-      GROUP BY TBL.brand,TBL.Dealer,TBL.Dealer_Location,TBL.STAGE,TBL.responcbucket ,Co_Dealer,Co_dealer_Location) AS TBL2
-     PIVOT (SUM(TBL2.ORDERVALUE)
-     FOR TBL2.responcbucket IN ([0-2 hrs],[2-5 hrs],[5-9 hrs],[1-2 days],[2-4 days],[>4 days])
-     ) AS TB
-     where Stage='PO Awaited'
-    """,conn,params=(brand,))
+    SELECT Brand, Dealer, CONCAT(Dealer, '_', Dealer_Location) AS [Dealer to Take Action], 
+    CONCAT(Co_Dealer, '_', Co_dealer_Location) AS [Co-Dealer],
+    Stage, ISNULL([0-2 hrs], 0) AS [0-2 hrs], ISNULL([2-5 hrs], 0) AS [2-5 hrs],
+    ISNULL([5-9 hrs], 0) AS [5-9 hrs], ISNULL([1-2 days], 0) AS [1-2 days], 
+    ISNULL([2-4 days], 0) AS [2-4 days], ISNULL([>4 days], 0) AS [>4 days],
+    (ISNULL([0-2 hrs], 0) + ISNULL([2-5 hrs], 0) + ISNULL([5-9 hrs], 0) + 
+    ISNULL([1-2 days], 0) + ISNULL([2-4 days], 0) + ISNULL([>4 days], 0)) AS Total
+    FROM (
+        SELECT TBL.brand, TBL.Dealer, TBL.Dealer_Location, tbl.Co_Dealer, tbl.Co_dealer_Location, 
+        TBL.STAGE, TBL.responcbucket, SUM(tbl.ordervalue) AS ORDERVALUE
+        FROM (
+            SELECT brand, Dealer, Dealer_Location, Category, OrderType, Co_Dealer, Co_dealer_Location,
+            Dealer_type, qty, POQty, DISCOUNT, MRP, Stage, Response_Time,
+            CASE
+                WHEN EXC_HOLIDAYS <= 120 THEN '0-2 hrs'
+                WHEN EXC_HOLIDAYS <= 300 THEN '2-5 hrs'
+                WHEN EXC_HOLIDAYS <= 540 THEN '5-9 hrs'
+                WHEN EXC_HOLIDAYS <= 1080 THEN '1-2 days'
+                WHEN EXC_HOLIDAYS <= 2160 THEN '2-4 days'
+                ELSE '>4 days'
+            END AS responcbucket,
+            CASE 
+                WHEN ISNULL(POQty, 0) = 0 THEN QTY * (100 - DISCOUNT) * MRP / 100
+                ELSE POQty * (100 - DISCOUNT) * MRP / 100
+            END AS ordervalue
+            FROM gainer_pendency_report_test_1
+            WHERE Category = 'Spare Part' AND OrderType = 'new' AND Dealer_type = 'Non_Intra' and brand=?
+        ) AS TBL
+        GROUP BY TBL.brand, TBL.Dealer, TBL.Dealer_Location, TBL.STAGE, TBL.responcbucket, Co_Dealer, Co_dealer_Location
+    ) AS TBL2
+    PIVOT (
+        SUM(TBL2.ORDERVALUE) FOR TBL2.responcbucket IN ([0-2 hrs], [2-5 hrs], [5-9 hrs], [1-2 days], [2-4 days], [>4 days])
+    ) AS TB
+    WHERE Stage = 'PO Awaited'
+""", conn,params=(brand,))
     
     # MAIL
     #Mail_df = pd.read_excel(r"C:\Users\Admin\Downloads\Gainer Mail list for Pendancy.xlsx")
