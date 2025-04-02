@@ -753,7 +753,7 @@ def Po_stage_pendancy(brand):
             print("Email sent successfully!")
         except Exception as e:
             print(f"Error: {e}")
-        st.success("Emails sent successfully!"+subject)    
+        st.success("Emails sent successfully!")    
 with tab2:
     col1, col2,col3 = st.columns(3)
     with col1:
