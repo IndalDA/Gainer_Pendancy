@@ -663,7 +663,7 @@ def Po_stage_pendancy(brandid):
      end responcbucket,
      case when ISNULL(POQty,0)=0  then QTY*(100-DISCOUNT)*MRP/100 else poqty*(100-DISCOUNT)*MRP/100 end ordervalue
      from gainer_pendency_report_test_1
-     where Category='Spare Part' and OrderType='new' and Dealer_type ='Non_Intra'    and BrandID=28
+     where Category='Spare Part' and OrderType='new' and Dealer_type ='Non_Intra'    and BrandID=?
       ) as TBL
       GROUP BY TBL.brand,TBL.Dealer,TBL.Dealer_Location,TBL.STAGE,TBL.responcbucket ,Co_Dealer,Co_dealer_Location) AS TBL2
      PIVOT (SUM(TBL2.ORDERVALUE)
