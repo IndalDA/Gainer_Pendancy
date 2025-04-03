@@ -585,8 +585,12 @@ with tab4:
             where d.CompanyCode=3 and PARTNUMBER is not null and a.RECEIVEDATE is null
             and c.BrandID=? and DISPATCHDATE <= DATEADD(day,-5,getdate()) and b.Dealer not like '%Test%'  and b.DealerID<>c.DealerID
             """,conn,params=(brandid,)) 
-                    
-            df_xlsx = to_excel(df)
+
+            Mail_df = pd.read_csv(r'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDqBXCxlSXSgOHUAUH6rPqtDQ-RWg9f0AOTFJH2-gAGOoJqubSFjGgRsJjmkECWyeWAP65Vx789z6B/pub?gid=1610467454&single=true&output=csv')
+            Mail_df['unique_dealer'] = Mail_df['Brand'] + "_" + Mail_df['Dealer'] + "_" + Mail_df['Location']
+            df['Unque_Dealer'] = df['Brand']+"_"+df['Buyer_Dealer']+"_"+df['Buyer_Location']
+            own_df = df.merge(Mail_df, left_on='Unque_Dealer', right_on='unique_dealer', how='left')
+            df_xlsx = to_excel(own_df)
             st.download_button(
                 label="Download Excel File",
                 data=df_xlsx,
