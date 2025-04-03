@@ -547,7 +547,7 @@ with tab1:
             Mail_df = pd.read_csv(r'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDqBXCxlSXSgOHUAUH6rPqtDQ-RWg9f0AOTFJH2-gAGOoJqubSFjGgRsJjmkECWyeWAP65Vx789z6B/pub?gid=1610467454&single=true&output=csv')
             Mail_df['unique_dealer'] = Mail_df['Brand'] + "_" + Mail_df['Dealer'] + "_" + Mail_df['Location']
             df['Unque_Dealer'] = df['Brand'] + "_" + df['Dealer to Take Action']
-            merge_df = df.merge(Mail_df, left_on='Unque_Dealer', right_on='unique_dealer', how='inner')
+            merge_df = df.merge(Mail_df, left_on='Unque_Dealer', right_on='unique_dealer', how='left')
             df_xlsx = to_excel(merge_df)
             st.download_button(
                 label="📥 Download Excel File",
