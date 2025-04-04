@@ -62,6 +62,9 @@ location = pd.read_sql_query("SELECT distinct Location FROM locationinfo WHERE b
 location_list = ["Select Location"] + location['Location'].tolist()
 Location = st.selectbox(label="Select Location", options=location_list)
 
+if brand == 'select brand':
+    brand = ''
+    
 # File Uploader for Email List
 #Mail_list = st.file_uploader("Upload Mail list", type='xlsx')
 
@@ -535,7 +538,7 @@ with tab1:
                         ELSE POQty * (100 - DISCOUNT) * MRP / 100
                     END AS ordervalue
                     FROM gainer_pendency_report_test_1
-                    WHERE Category = 'Spare Part' AND OrderType = 'new' AND Dealer_type = 'Non_Intra' or brand=? or brand=''
+                    WHERE Category = 'Spare Part' AND OrderType = 'new' AND Dealer_type = 'Non_Intra' AND (brand = ? OR brand IS NULL OR brand = '')
                 ) AS TBL
                 GROUP BY TBL.brand, TBL.Dealer, TBL.Dealer_Location, TBL.STAGE, TBL.responcbucket, Co_Dealer, Co_dealer_Location
             ) AS TBL2
