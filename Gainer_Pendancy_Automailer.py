@@ -535,7 +535,7 @@ with tab1:
                         ELSE POQty * (100 - DISCOUNT) * MRP / 100
                     END AS ordervalue
                     FROM gainer_pendency_report_test_1
-                    WHERE Category = 'Spare Part' AND OrderType = 'new' AND Dealer_type = 'Non_Intra' and brand=?
+                    WHERE Category = 'Spare Part' AND OrderType = 'new' AND Dealer_type = 'Non_Intra' or brand=? or brand=''
                 ) AS TBL
                 GROUP BY TBL.brand, TBL.Dealer, TBL.Dealer_Location, TBL.STAGE, TBL.responcbucket, Co_Dealer, Co_dealer_Location
             ) AS TBL2
