@@ -139,8 +139,8 @@ def Mail(brand):
         cc_email_list = cc_emails.split(';') if cc_emails else []
         all_recipients = [to_email] + cc_email_list
         print(f"Sending email to: {dealer,all_recipients}")
-        cc_emails=['scsit.dev2@sparecare.in','vishu.b@sparecare.in','scope@sparecare.in','ayush.s@sparecare.in','scsit.db3@sparecare.in','scsit.qa2@sparecare.in']   
-        to_email="scsit.db2@sparecare.in"
+        #cc_emails=['scsit.dev2@sparecare.in','vishu.b@sparecare.in','scope@sparecare.in','ayush.s@sparecare.in','scsit.db3@sparecare.in','scsit.qa2@sparecare.in']   
+        #to_email="scsit.db2@sparecare.in"
         msg = MIMEMultipart("alternative")
         msg["Subject"] = "Pending Sales Orders_"+dealer
         #msg["From"] = "scsit.db2@sparecare.in"
