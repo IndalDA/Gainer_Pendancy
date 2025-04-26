@@ -139,8 +139,7 @@ def Mail(brand):
         cc_email_list = cc_emails.split(';') if cc_emails else []
         all_recipients = [to_email] + cc_email_list
         print(f"Sending email to: {dealer,all_recipients}")
-        #cc_emails=['scsit.dev2@sparecare.in','vishu.b@sparecare.in','scope@sparecare.in','ayush.s@sparecare.in','scsit.db3@sparecare.in','scsit.qa2@sparecare.in']   
-        #to_email="scsit.db2@sparecare.in"
+
         msg = MIMEMultipart("alternative")
         msg["Subject"] = "Pending Sales Orders_"+dealer
         #msg["From"] = "scsit.db2@sparecare.in"
@@ -149,7 +148,7 @@ def Mail(brand):
         #msg['Cc'] = ','.join(cc_emails)
         msg['Cc']=cc_emails
 
-        #['scsit.dev2@sparecare.in','vishu.b@sparecare.in','scope@sparecare.in','ayush.s@sparecare.in','scsit.db3@sparecare.in','scsit.qa2@sparecare.in']
+        #['hanish.khattar@sparecare.in','manish.sharma@sparecare.in','scope@sparecare.in']
         #"idas98728@gmail.com"
 
         html_content = f"""
@@ -200,7 +199,7 @@ def Mail(brand):
         try:
             with smtplib.SMTP("smtp.gmail.com", 587) as server:
                 server.starttls()
-                server.login('gainer.alerts@sparecare.in', 'qiuwbjdpujqdgcjd')
+                server.login('gainer.alerts@sparecare.in', 'jdowcrmjlzjdricn')
                 server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
             print("Email sent successfully!")
         except Exception as e:
@@ -351,7 +350,7 @@ def Own_arrangement_Mail(brandid):
       try:
           with smtplib.SMTP("smtp.gmail.com", 587) as server:
               server.starttls()
-              server.login('gainer.alerts@sparecare.in', 'qiuwbjdpujqdgcjd')
+              server.login('gainer.alerts@sparecare.in', 'jdowcrmjlzjdricn')
               server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
           print("Email sent successfully!")
       except Exception as e:
@@ -496,7 +495,7 @@ def stock_update_Mail(brandid):
         try:
             with smtplib.SMTP("smtp.gmail.com", 587) as server:
                 server.starttls()
-                server.login('gainer.alerts@sparecare.in', 'qiuwbjdpujqdgcjd')
+                server.login('gainer.alerts@sparecare.in', 'jdowcrmjlzjdricn')
                 server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
             print("Email sent successfully!")
             st.success("Emails sent successfully!")    
@@ -761,7 +760,7 @@ def Po_stage_pendancy(brand):
         try:
             with smtplib.SMTP("smtp.gmail.com", 587) as server:
                 server.starttls()
-                server.login('gainer.alerts@sparecare.in', 'qiuwbjdpujqdgcjd')
+                server.login('gainer.alerts@sparecare.in', 'jdowcrmjlzjdricn')
                 server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
             print("Email sent successfully!")
             st.success("Emails sent successfully!")
