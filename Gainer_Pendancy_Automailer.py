@@ -199,7 +199,7 @@ def Mail(brand):
         try:
             with smtplib.SMTP("smtp.gmail.com", 587) as server:
                 server.starttls()
-                server.login('gainer.alerts@sparecare.in', 'jdowcrmjlzjdricn')
+                server.login('gainer.alerts@sparecare.in', 'trtrlbjmufjccfgq')
                 #server.login('scsit.db2@sparecare.in','srwbuifkckeimqix')
                 server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
             print("Email sent successfully!")
@@ -351,7 +351,7 @@ def Own_arrangement_Mail(brandid):
       try:
           with smtplib.SMTP("smtp.gmail.com", 587) as server:
               server.starttls()
-              server.login('gainer.alerts@sparecare.in', 'jdowcrmjlzjdricn')
+              server.login('gainer.alerts@sparecare.in', 'trtrlbjmufjccfgq')
               #server.login('scsit.db2@sparecare.in','srwbuifkckeimqix')
               server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
           print("Email sent successfully!")
@@ -497,7 +497,7 @@ def stock_update_Mail(brandid):
         try:
             with smtplib.SMTP("smtp.gmail.com", 587) as server:
                 server.starttls()
-                server.login('gainer.alerts@sparecare.in', 'jdowcrmjlzjdricn')
+                server.login('gainer.alerts@sparecare.in', 'trtrlbjmufjccfgq')
                 #server.login('scsit.db2@sparecare.in','srwbuifkckeimqix')
                 server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
             print("Email sent successfully!")
@@ -763,7 +763,7 @@ def Po_stage_pendancy(brand):
         try:
             with smtplib.SMTP("smtp.gmail.com", 587) as server:
                 server.starttls()
-                server.login('gainer.alerts@sparecare.in', 'jdowcrmjlzjdricn')
+                server.login('gainer.alerts@sparecare.in', 'trtrlbjmufjccfgq')
                 #server.login('scsit.db2@sparecare.in','srwbuifkckeimqix')
                 server.sendmail('gainer.alerts@sparecare.in', all_recipients, msg.as_string())
             print("Email sent successfully!")
